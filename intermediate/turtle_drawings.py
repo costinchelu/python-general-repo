@@ -57,22 +57,21 @@ def draw_spiro(tim: t.Turtle, size_of_gap):
 
 def draw_hears_dots(tim: t.Turtle):
     # color_list = get_colors_from_image(image)
-    tim.hideturtle()
     tim.penup()
     tim.setheading(225)
-    tim.forward(300)
+    tim.forward(500)
     tim.setheading(0)
     number_of_dots = 100
 
     for dot_count in range(1, number_of_dots + 1):
-        tim.dot(20, random.choice(colors_2))
-        tim.forward(50)
+        tim.dot(40, random.choice(colors_2))
+        tim.forward(80)
 
         if dot_count % 10 == 0:
             tim.setheading(90)
-            tim.forward(50)
+            tim.forward(80)
             tim.setheading(180)
-            tim.forward(500)
+            tim.forward(800)
             tim.setheading(0)
 
 
@@ -80,18 +79,22 @@ def turtle_example():
     t.colormode(255)
     timmy = t.Turtle()
     timmy.speed("fastest")
+    timmy.hideturtle()
     my_screen = t.Screen()
     my_screen.bgcolor("black")
 
-    user_choice = input("Choose: \n1 for shapes, \n2 for random walk, \n3 for spirograph \n4 for Hearst painting\n ")
-    if user_choice == "1":
-        get_shapes(timmy)
-    elif user_choice == "2":
-        random_walk(timmy)
-    elif user_choice == "3":
-        draw_spiro(timmy, 3)
-    else:
-        draw_hears_dots(timmy)
+    # user_choice = input("Choose: \n1 for shapes, \n2 for random walk, \n3 for spirograph \n4 for Hearst painting\n ")
+    # if user_choice == "1":
+    #     get_shapes(timmy)
+    # elif user_choice == "2":
+    #     random_walk(timmy)
+    # elif user_choice == "3":
+    #     draw_spiro(timmy, 3)
+    # else:
+    #     my_screen.bgcolor("white")
+    #     draw_hears_dots(timmy)
+    my_screen.bgcolor("white")
+    draw_hears_dots(timmy)
 
     my_screen.exitonclick()
 
