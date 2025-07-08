@@ -10,7 +10,8 @@ user_bet = screen.textinput(
 
 colors = ["red", "orange", "yellow", "green", "blue", "indigo", "darkviolet"]
 turtles = []
-y_position = -150
+Y_POSITION_STARTER = -150
+X_POSITION = -230
 is_race_on = False
 
 for t in range(7):
@@ -18,7 +19,7 @@ for t in range(7):
     new_turtle.hideturtle()
     new_turtle.penup()
     new_turtle.color(colors[t])
-    new_turtle.goto(x=-230, y=y_position + t * 50)
+    new_turtle.goto(x=X_POSITION, y=Y_POSITION_STARTER + t * 50)
     new_turtle.showturtle()
     turtles.append(new_turtle)
 
