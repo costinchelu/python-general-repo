@@ -10,11 +10,15 @@ class FlashCard:
     IMG_RIGHT = "../resources/flash_card_img/right.png"
     IMG_WRONG = "../resources/flash_card_img/wrong.png"
     WORDS = "../resources/french_words.csv"
+    TO_LEARN_FILE = "../resources/output/flash_card_to_learn.csv"
     current_card = {}
 
     def __init__(self):
-        self.df = pandas.read_csv(self.WORDS)
-        self.data_dict = self.df.to_dict(orient="records")
+        try:
+            self.file_df = pandas.read_csv(self.TO_LEARN_FILE)
+        except FileNotFoundError:
+            self.file_df = pandas.read_csv(self.WORDS)
+        self.data_dict = self.file_df.to_dict(orient="records")
 
         self.window = Tk()
         self.window.title("Flashcards")
@@ -62,11 +66,15 @@ class FlashCard:
 
     def is_known(self):
         self.data_dict.remove(self.current_card)
+
+        data_to_save_df = pandas.DataFrame(self.data_dict)
+        data_to_save_df.to_csv(self.TO_LEARN_FILE, index=False)
+
         self.next_card()
 
 
     def run(self):
-        self.window.mainloop()
+        self.window.mainloop ()
 
 
 def main():
