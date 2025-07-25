@@ -7,6 +7,7 @@ API_ENDPOINT = "https://opentdb.com/api.php"
 PARAMS = {
     "amount": 20,
     "type": "boolean"
+    ,"category": 18
 }
 
 response = requests.get(API_ENDPOINT, PARAMS)

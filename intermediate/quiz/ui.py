@@ -44,8 +44,15 @@ class QuizzInterface:
 
 
     def get_next_question(self):
-        q_text = self.quiz.next_question()
-        self.canvas.itemconfig(self.question_text, text=q_text)
+        self.canvas.config(bg="white")
+        if self.quiz.still_has_questions():
+            self.score_label.config(text=f"Score: {self.quiz.score}")
+            q_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.question_text, text=q_text)
+        else:
+            self.true_btn.config(state="disabled")
+            self.false_btn.config(state="disabled")
+            self.canvas.itemconfig(self.question_text, text="You have reached the end of the quiz!")
 
 
     def return_answer(self, answer: str):
@@ -54,4 +61,4 @@ class QuizzInterface:
             self.canvas.config(bg="green")
         else:
             self.canvas.config(bg="red")
-        self.window.after(1000, self.get_next_question)
+        self.window.after(1000, func=self.get_next_question)
