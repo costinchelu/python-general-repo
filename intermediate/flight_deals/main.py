@@ -3,16 +3,17 @@ from datetime import datetime, timedelta
 from intermediate.flight_deals.flight_search import FlightSearch
 from intermediate.flight_deals.data_manager import DataManager
 from intermediate.flight_deals.flight_data import find_cheapest_flight
+from intermediate.flight_deals.notification_service import NotificationService
 
 
 def main():
-    flight_search = FlightSearch()
-    sheety = DataManager()
-    # flight_search = FlightSearch()
+    flight_search_service = FlightSearch()
+    data_manager_service = DataManager()
+    notification_service = NotificationService()
 
     origin_city_iata = "OTP"
 
-    sheet_data = sheety.get_destination_data()
+    sheet_data = data_manager_service.get_destination_data()
     print(f"sheet_data:\n {sheet_data}")
 
     tomorrow = datetime.now() + timedelta(days=1)
@@ -20,7 +21,7 @@ def main():
 
     for destination in sheet_data:
         print(f"Getting flights for {destination['city']}...")
-        flights = flight_search.check_flights(
+        flights = flight_search_service.check_flights(
             origin_city_iata,
             destination["iataCode"],
             from_time=tomorrow,
@@ -32,7 +33,7 @@ def main():
 
         if cheapest_flight.price == "N/A":
             print(f"No direct flight to {destination['city']}. Looking for indirect flights...")
-            stopover_flights = flight_search.check_flights(
+            stopover_flights = flight_search_service.check_flights(
                 origin_city_iata,
                 destination["iataCode"],
                 from_time=tomorrow,
@@ -41,11 +42,12 @@ def main():
             )
             cheapest_flight = find_cheapest_flight(stopover_flights)
             print(f"Cheapest indirect flight price is: EUR {cheapest_flight.price}")
-        sheety.write_in_price_journal(cheapest_flight)
+        data_manager_service.write_in_price_journal(cheapest_flight)
 
     # stub for user mail notifier
-    customer_data = sheety.get_customer_emails()
+    customer_data = data_manager_service.get_customer_emails()
     customer_email_list = [row["whatIsYourEmailAddress?"] for row in customer_data]
+    notification_service.send_email(customer_email_list, f"<Message>")
 
 
 if __name__ == "__main__":
