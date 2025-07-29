@@ -1,11 +1,11 @@
 import smtplib
 
 class NotificationService:
+    """
+    MailHog container is used to test sending and receiving
+    """
 
     def __init__(self):
-        """
-        MailHog container is used to test sending and receiving
-        """
         self._smtp_server_address = "localhost"
         self._smtp_server_port = 1025
         self._smtp_sender = "flightclub@flightclub.com"
