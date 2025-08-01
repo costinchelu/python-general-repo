@@ -17,18 +17,15 @@ all_article_upvote_elements = []
 for span in all_article_upvote_spans:
     all_article_upvote_elements.append(span.getText())
 
-titles_list = []
-links_list = []
-upvote_list = []
+titles_list, links_list, upvote_list = [], [], []
 for tag in all_title_anchor_tags:
     titles_list.append(tag.getText())
     links_list.append(tag.get("href"))
 
 for upvote in all_article_upvote_elements:
-    up = int(upvote.split(" ")[0])
+    up = int(upvote.split()[0])
     upvote_list.append(up)
 
-
-result = [titles_list, links_list, upvote_list]
+result = list(zip(titles_list, links_list, upvote_list))
+result.sort(key=lambda x: x[2], reverse=True)
 pp.pprint(result)
-
