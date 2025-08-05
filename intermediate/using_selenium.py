@@ -1,7 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
 
 test_url = "https://www.python.org"
+test_url_2 = "https://en.wikipedia.org/wiki/Main_Page"
 
 # to keep the browser window open after the end of the program:
 chrome_options = webdriver.ChromeOptions()
@@ -33,5 +36,20 @@ for n in range(len(event_times)):
 print(events)
 
 
+driver.get(test_url_2)
+article_count = driver.find_element(By.CSS_SELECTOR, value="#articlecount a")
+article_count.click()
+
+pages = driver.find_element(By.LINK_TEXT, value="Pages")
+pages.click()
+
+search_box = driver.find_element(By.NAME, value="search")
+search_box.send_keys("Python")
+search_box.send_keys(Keys.ENTER)
+
+python_programming_link = driver.find_element(By.XPATH, value="//a[@title='Python (programming language)']")
+python_programming_link.click()
+
+
 # driver.close()
-driver.quit()
+# driver.quit()
