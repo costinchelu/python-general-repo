@@ -1,0 +1,33 @@
+# IDE files:
+.idea/
+.vscode/
+*.iml
+
+# Local data / databases:
+data/
+*.db
+*.db-*
+
+# Virtual environments:
+[v]env/
+
+# Cache:
+__pycache__/
+.tox/
+.nox/
+.*_cache
+
+# pytest-cov:
+coverage_html_report/
+.coverage
+
+
+# Recordings:
+*.mp4
+
+# Other:
+.DS_Store
+
+# Infrastructure files:
+.terraform/
+terraform.tfstate.d
