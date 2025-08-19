@@ -1,4 +1,6 @@
 from flask import Flask, render_template
+import random
+import requests
 
 app = Flask(__name__)
 
@@ -23,7 +25,24 @@ def show_post(post_id):
 
 @app.route("/render")
 def render_html():
-    return render_template("example_1.html")
+    random_number = random.randint(1, 10)
+    return render_template("example_1.html", num=random_number)
+
+@app.route("/guess/<name>")
+def guess(name):
+    gender_url = f"https://api.genderize.io?name={name}"
+    age_url = f"https://api.agify.io?name={name}"
+    gender_data = requests.get(gender_url).json()
+    age_data = requests.get(age_url).json()
+    gender = gender_data["gender"]
+    age = age_data["age"]
+    animals = ["cow", "chicken"]
+    return render_template("example_1.html", name=name, gender=gender, age=age, animals=animals)
+
+
+@app.route("/blog")
+def get_blog():
+    return render_template("blog.html")
 
 
 # flask --app flask_example_1.py run
