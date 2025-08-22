@@ -28,6 +28,7 @@ def render_html():
     random_number = random.randint(1, 10)
     return render_template("example_1.html", num=random_number)
 
+
 @app.route("/guess/<name>")
 def guess(name):
     gender_url = f"https://api.genderize.io?name={name}"
