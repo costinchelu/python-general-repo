@@ -5,7 +5,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
-@app.route("/index")
+@app.route("/index", methods=["GET"])
 def get_all_posts():
     return render_template("index.html")
 
